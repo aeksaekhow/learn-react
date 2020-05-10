@@ -1,59 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person'
 
-class App extends Component {
+const App = () => {
 
-    state = {
-        persons: [
+    const [ persons, setPersons ] = useState([
+        {
+            name: 'Aek',
+            age: 29
+        },
+        {
+            name: 'Mook',
+            age: 28
+        },
+        {
+            name: 'Song',
+            age: 25
+        }
+    ])
+
+    const switchNameHandler = () => {
+
+        setPersons([
             {
-                name: 'Aek',
+                name: 'Aek Sae-khow',
                 age: 29
             },
             {
-                name: 'Mook',
+                name: 'Chotmanee Thong-aom',
                 age: 28
             },
             {
-                name: 'Song',
+                name: 'Sarunya Sae-khow',
                 age: 25
             }
-        ]
+        ])
     }
 
-    switchNameHandler = () => {
+    const nameChangedHandler = (event, index) => {
 
-        this.setState({
-            persons: [
-                {
-                    name: 'Aek Sae-khow',
-                    age: 29
-                },
-                {
-                    name: 'Mook',
-                    age: 28
-                },
-                {
-                    name: 'Sarunya Sae-khow',
-                    age: 25
-                }
-            ]
-        })
+        const newPersons = [...persons]
+        const newPerson = {...newPersons[index]}
+        newPerson.name = event.target.value
+        newPersons[index] = newPerson
+
+        setPersons(newPersons)
     }
 
-  render() {
+    const style = {
+        backgroundColor: 'white',
+        font: 'inherit',
+        border: '1px solid blue',
+        padding: '8px',
+        cursor: 'pointer'
+    }
+
+    const jsxPersons = []
+    for (const index in persons) {
+        const person = persons[index]
+        jsxPersons.push(
+            <Person
+                key={index}
+                person={person}
+                onChange={(event) => nameChangedHandler(event, index)} />
+        )
+    }
+
     return (
-      <div className="App">
-          <h1>Hi, Aek Sae-khow</h1>
-          <button onClick={this.switchNameHandler}></button>
-          <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-          <Person name={this.state.persons[1].name} age={this.state.persons[1].age} />
-          <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
-      </div>
+        <div className="App">
+            <h1>Hi, Aek Sae-khow</h1>
+            <button
+                style={style}
+                onClick={switchNameHandler}>Switch Names</button>
+            {jsxPersons}
+        </div>
     )
 
-      // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hello'))
-  }
 }
+
 
 export default App;
