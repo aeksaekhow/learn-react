@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person'
-import Radium, {StyleRoot} from "radium";
 
 const App = () => {
 
@@ -69,18 +68,16 @@ const App = () => {
     }
 
     return (
-        <StyleRoot>
-            <div className="App">
-                <h1>Hi, Aek Sae-khow</h1>
-                <button
-                    style={style}
-                    onClick={toggleDisplay}>{display ? 'Hide' : 'Show'}</button>
-                {jsxPersons}
-            </div>
-        </StyleRoot>
+        <div className="App">
+            <h1>Hi, Aek Sae-khow</h1>
+            <button
+                style={style}
+                onClick={toggleDisplay}>{display ? 'Hide' : 'Show'}</button>
+            {jsxPersons}
+        </div>
     )
 
 }
 
 
-export default Radium(App);
+export default App
