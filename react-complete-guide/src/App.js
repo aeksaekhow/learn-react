@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person'
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+text-align: center;
+`
+
+const StyledButton = styled.button(props => `
+        background-color: ${props.alt === 'true'  ? 'red' : 'green'};
+        color: white;
+        font: inherit;
+        border: 1px solid blue;
+        padding: 8px;
+        cursor: pointer;
+        &:hover {
+            background-color: ${props.alt === 'true' ? '#ffcccb' : 'lightgreen'};
+            color: black;
+        }
+`)
 
 const App = () => {
 
@@ -36,17 +54,6 @@ const App = () => {
         setPersons(newPersons)
     }
 
-    const style = {
-        backgroundColor: 'white',
-        font: 'inherit',
-        border: '1px solid blue',
-        padding: '8px',
-        cursor: 'pointer',
-        ':hover': {
-            backgroundColor: 'lightgreen',
-            color: 'black'
-        }
-    }
 
     const jsxPersons = []
     if (display) {
@@ -60,21 +67,14 @@ const App = () => {
             )
         }
 
-        style.backgroundColor = 'red'
-        style[':hover'] = {
-            backgroundColor: '#ffcccb',
-            color: 'black'
-        }
     }
 
     return (
-        <div className="App">
+        <StyledDiv>
             <h1>Hi, Aek Sae-khow</h1>
-            <button
-                style={style}
-                onClick={toggleDisplay}>{display ? 'Hide' : 'Show'}</button>
+            <StyledButton alt={display.toString()} onClick={toggleDisplay}>{display ? 'Hide' : 'Show'}</StyledButton>
             {jsxPersons}
-        </div>
+        </StyledDiv>
     )
 
 }
