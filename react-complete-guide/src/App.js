@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person'
+import Radium, {StyleRoot} from "radium";
 
 const App = () => {
 
@@ -19,22 +20,11 @@ const App = () => {
         }
     ])
 
-    const switchNameHandler = () => {
+    const [display, setDisplay] = useState(true)
 
-        setPersons([
-            {
-                name: 'Aek Sae-khow',
-                age: 29
-            },
-            {
-                name: 'Chotmanee Thong-aom',
-                age: 28
-            },
-            {
-                name: 'Sarunya Sae-khow',
-                age: 25
-            }
-        ])
+    const toggleDisplay = () => {
+
+        setDisplay(!display)
     }
 
     const nameChangedHandler = (event, index) => {
@@ -52,31 +42,45 @@ const App = () => {
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        ':hover': {
+            backgroundColor: 'lightgreen',
+            color: 'black'
+        }
     }
 
     const jsxPersons = []
-    for (const index in persons) {
-        const person = persons[index]
-        jsxPersons.push(
-            <Person
-                key={index}
-                person={person}
-                onChange={(event) => nameChangedHandler(event, index)} />
-        )
+    if (display) {
+        for (const index in persons) {
+            const person = persons[index]
+            jsxPersons.push(
+                <Person
+                    key={index}
+                    person={person}
+                    onChange={(event) => nameChangedHandler(event, index)}/>
+            )
+        }
+
+        style.backgroundColor = 'red'
+        style[':hover'] = {
+            backgroundColor: '#ffcccb',
+            color: 'black'
+        }
     }
 
     return (
-        <div className="App">
-            <h1>Hi, Aek Sae-khow</h1>
-            <button
-                style={style}
-                onClick={switchNameHandler}>Switch Names</button>
-            {jsxPersons}
-        </div>
+        <StyleRoot>
+            <div className="App">
+                <h1>Hi, Aek Sae-khow</h1>
+                <button
+                    style={style}
+                    onClick={toggleDisplay}>{display ? 'Hide' : 'Show'}</button>
+                {jsxPersons}
+            </div>
+        </StyleRoot>
     )
 
 }
 
 
-export default App;
+export default Radium(App);
