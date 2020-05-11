@@ -3,6 +3,10 @@ import classes from './styles.module.css'
 
 class Cockpit extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render = () => {
 
         const buttonClasses = [classes.Button]

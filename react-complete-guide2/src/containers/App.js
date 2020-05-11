@@ -41,21 +41,30 @@ class App extends React.Component {
   }
 
   onPersonDelete = (event, index) => {
-    const newPersons = []
-    for (const i in this.state.persons) {
-      if (i === index) continue
-      newPersons.push(this.state.persons[i])
-    }
 
-    this.setState({
-      persons: newPersons
+    this.setState((previousState, props) => {
+
+      const newPersons = []
+      for (const i in previousState.persons) {
+        if (i === index) continue
+        newPersons.push(previousState.persons[i])
+      }
+
+      return {
+        persons: newPersons
+      }
     })
+
   }
 
   toggleDisplayPersons = () => {
-    this.setState({
-      displayPersons: !this.state.displayPersons
+
+    this.setState((previousState, props) => {
+      return {
+        displayPersons: !previousState.displayPersons
+      }
     })
+
   }
 
   render = () => {

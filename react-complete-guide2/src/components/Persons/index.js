@@ -4,6 +4,10 @@ import Person from './Person'
 
 class Persons extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render = () => {
         const jsxPersons = []
         for (const index in this.props.persons) {
