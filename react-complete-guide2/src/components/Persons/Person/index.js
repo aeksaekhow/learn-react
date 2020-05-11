@@ -18,7 +18,7 @@ class Person extends React.Component {
         return (
             <Fragment>
                 <p>My name is {this.props.person.name}. I'm {this.props.person.age} years old.</p>
-                <input type="text" value={this.props.person.name} onChange={this.props.onNameChange} ref={this.inputElementRef}/>
+                <input ref={this.inputElementRef} type="text" value={this.props.person.name} onChange={this.props.onNameChange} />
                 <button type={'button'} onClick={this.props.onPersonDelete}>Delete</button>
             </Fragment>
         )
