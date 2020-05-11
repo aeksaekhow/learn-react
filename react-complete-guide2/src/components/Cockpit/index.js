@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import classes from './styles.module.css'
+import withClass from '../../hoc/withClass'
+import PersonAmountContext from '../../contexts/PersonAmountContext'
 
 class Cockpit extends React.Component {
 
@@ -15,17 +17,25 @@ class Cockpit extends React.Component {
         }
 
         return (
-            <div className={classes.Cockpit}>
-                <h1>Hi, there {this.props.personAmount <= 1 ? 'is' : 'are'} {this.props.personAmount} persons.</h1>
-                <button
-                    type={"button"} className={buttonClasses.join(' ')}
-                    onClick={this.props.toggleDisplayPersonsHandler}>
-                    {this.props.displayPersons ? 'Hide' : 'Show'}
-                </button>
-            </div>
+            <Fragment>
+                <PersonAmountContext.Consumer>
+                {
+                    (personAmount) => (
+                        <Fragment>
+                            <h1>Hi, there {personAmount <= 1 ? 'is' : 'are'} {personAmount} persons.</h1>
+                            <button
+                                type={"button"} className={buttonClasses.join(' ')}
+                                onClick={this.props.toggleDisplayPersonsHandler}>
+                                {this.props.displayPersons ? 'Hide' : 'Show'}
+                            </button>
+                        </Fragment>
+                    )
+                }
+                </PersonAmountContext.Consumer>
+            </Fragment>
         )
     }
 
 }
 
-export default Cockpit
+export default withClass(Cockpit, classes.Cockpit)

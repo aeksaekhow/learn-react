@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { Component, Fragment } from 'react';
 import classes from './App.module.css'
 import Persons from '../components/Persons'
 import Cockpit from '../components/Cockpit'
+import PersonAmountContext from '../contexts/PersonAmountContext'
+import withClass from '../hoc/withClass'
 
-class App extends React.Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
@@ -71,18 +73,19 @@ class App extends React.Component {
 
 
     return (
-        <div className={classes.App}>
-          <Cockpit
-              personAmount={this.state.persons.length}
-              toggleDisplayPersonsHandler={this.toggleDisplayPersons}
-              displayPersons={this.state.displayPersons}/>
-          {this.state.displayPersons ? <Persons
-              persons={this.state.persons}
-              nameChangeHandler={this.onNameChange}
-              personDeleteHandler={this.onPersonDelete}/> : null}
-        </div>
+        <Fragment>
+          <PersonAmountContext.Provider value={this.state.persons.length}>
+            <Cockpit
+                toggleDisplayPersonsHandler={this.toggleDisplayPersons}
+                displayPersons={this.state.displayPersons}/>
+            {this.state.displayPersons ? <Persons
+                persons={this.state.persons}
+                nameChangeHandler={this.onNameChange}
+                personDeleteHandler={this.onPersonDelete}/> : null}
+          </PersonAmountContext.Provider>
+        </Fragment>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
