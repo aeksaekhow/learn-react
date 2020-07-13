@@ -6,8 +6,11 @@ import PersonAmountContext from '../../../contexts/PersonAmountContext'
 
 class Person extends React.Component {
 
+    static contextType = PersonAmountContext
+
     constructor(props) {
         super(props);
+
         this.inputElementRef = React.createRef()
     }
 
@@ -18,18 +21,10 @@ class Person extends React.Component {
     render = () => {
         return (
             <Fragment>
-                <PersonAmountContext.Consumer>
-                    {
-                        (personAmount) => (
-                            <Fragment>
-                                <p>My name is {this.props.person.name}. I'm {this.props.person.age} years old.</p>
-                                <p>We now have {personAmount} persons left.</p>
-                                <input ref={this.inputElementRef} type="text" value={this.props.person.name} onChange={this.props.onNameChange} />
-                                <button type={'button'} onClick={this.props.onPersonDelete}>Delete</button>
-                            </Fragment>
-                        )
-                    }
-                </PersonAmountContext.Consumer>
+                <p>My name is {this.props.person.name}. I'm {this.props.person.age} years old.</p>
+                <p>We now have {this.context} persons left.</p>
+                <input ref={this.inputElementRef} type="text" value={this.props.person.name} onChange={this.props.onNameChange} />
+                <button type={'button'} onClick={this.props.onPersonDelete}>Delete</button>
             </Fragment>
         )
     }

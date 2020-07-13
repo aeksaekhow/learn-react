@@ -78,10 +78,12 @@ class App extends Component {
             <Cockpit
                 toggleDisplayPersonsHandler={this.toggleDisplayPersons}
                 displayPersons={this.state.displayPersons}/>
-            {this.state.displayPersons ? <Persons
+            {this.state.displayPersons ?
+                <Persons
                 persons={this.state.persons}
                 nameChangeHandler={this.onNameChange}
-                personDeleteHandler={this.onPersonDelete}/> : null}
+                personDeleteHandler={this.onPersonDelete}/> :
+                null}
           </PersonAmountContext.Provider>
         </Fragment>
     );
